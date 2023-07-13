@@ -3,6 +3,8 @@ import ListItem from '../ListItem'
 import Link from 'next/link';
 import Image from 'next/image';
 
+import { AiOutlineShoppingCart } from "react-icons/ai";
+
 import BrandLogo from '../../assets/React.png'
 
 function Header() {
@@ -35,51 +37,39 @@ function Header() {
                   <ul className="block sm:flex">
                     <ListItem
                       navItemStyles="text-dark hover:text-primary"
-                      NavLink="/#"
+                      NavLink="/"
                     >
-                      About us
+                      Products
                     </ListItem>
                     <ListItem
                       navItemStyles="text-dark hover:text-primary"
-                      NavLink="/#"
+                      NavLink="/cart"
                     >
-                      What We do
+                      Cart
                     </ListItem>
-                    <ListItem
-                      navItemStyles="text-dark hover:text-primary"
-                      NavLink="/#"
-                    >
-                      Our work
-                    </ListItem>
-                    <ListItem
-                      navItemStyles="text-dark hover:text-primary"
-                      NavLink="/#"
-                    >
-                      Blog
-                    </ListItem>
-                    <ListItem
-                      navItemStyles="text-dark hover:text-primary"
-                      NavLink="/#"
-                    >
-                      Say hi
-                    </ListItem>
+                   
                   </ul>
                 </nav>
               </div>
             </div>
 
             {/* Navbar Toggler */}
-            <div className='py-5'>
+            <div className='flex items-center justify-center gap-4 py-5'>
               <button
                       onClick={() => setOpen(!open)}
                       id="navbarToggler"
                       className={` ${
                         open && "navbarTogglerActive"
-                      } rounded-lg p-3 ring-primary focus:ring-2 flex flex-col items-center justify-center gap-2 lg:gap-1.5`}
+                      } rounded-lg p-3 ring-primary focus:ring-2 flex flex-col items-center justify-center gap-2 lg:gap-1.5 sm:hidden`}
                     >
                       <span className="h-[2px] w-[30px] bg-blue-violet rounded-full"></span>
                       <span className="h-[2px] w-[30px] bg-blue-violet rounded-full"></span>
                       <span className="h-[2px] w-[30px] bg-blue-violet rounded-full"></span>
+              </button>
+
+              <button className='relative'>
+                <span className='absolute -top-4 left-[calc(50%-4px)]'>{0}</span>
+                <AiOutlineShoppingCart className='text-[30px]'/>
               </button>
             </div>
           </div>
