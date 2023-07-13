@@ -6,11 +6,13 @@ import Image from 'next/image';
 import { AiOutlineShoppingCart } from "react-icons/ai";
 
 import BrandLogo from '../../assets/React.png'
+import { ToastContainer } from 'react-toastify';
 
 function Header() {
   const [open, setOpen] = useState(false);
 
   return (
+    <>
     <header className='w-full overflow-hidden'>
       <div className="2xl:container md:container container">
           <div className="relative flex items-center justify-between -mx-4 px-4 sm:px-0">
@@ -75,6 +77,20 @@ function Header() {
           </div>
         </div>
     </header>
+
+    <ToastContainer
+      position="top-right"
+      autoClose={5000}
+      hideProgressBar={false}
+      newestOnTop={false}
+      closeOnClick
+      rtl={false}
+      pauseOnFocusLoss
+      draggable
+      pauseOnHover
+        />
+    </>
+    
   )
 }
 
