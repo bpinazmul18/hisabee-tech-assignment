@@ -10,7 +10,7 @@ const ProductCard = ({ product }: {product: ProductIProps}) => {
             <Image
                 src={product.image}
                 alt={product.title}
-                className="w-full h-48 object-cover rounded-t"
+                className="w-full h-48 object-contain rounded-t"
                 fill
                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                 placeholder='empty'
