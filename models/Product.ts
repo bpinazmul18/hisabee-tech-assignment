@@ -8,5 +8,6 @@ export interface ProductIProps {
     rating: {
         rate: number,
         count: number
-    }
+    },
+    quantity?: number,
   }
