@@ -8,6 +8,7 @@ import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react'
 import { store, persistedStore } from '@/store/configureStore';
 import { setCategoryList } from '@/store/categories'
+import axios from 'axios'
 
 const NextApp = ({ Component, pageProps, ...otherProps }: AppProps) => {
   return (
@@ -26,11 +27,13 @@ export default NextApp
 NextApp.getInitialProps = async (context: AppContext) => {
   const appProps = await App.getInitialProps(context);
 
+  axios.defaults.baseURL = process.env.API_URL;
+
   const dataFetchPromises: Promise<void>[] = [];
   const props: { categoryList?: any } = {};
 
   dataFetchPromises.push(
-    getCategoryList({ limit: 5 }).then((categoryList) => {
+    getCategoryList().then((categoryList) => {
       if (categoryList) {
         store.dispatch(setCategoryList(categoryList));
         props.categoryList = categoryList || [];
