@@ -1,14 +1,25 @@
 import React, { useState } from 'react'
-import ListItem from '../ListItem'
 import Link from 'next/link';
 import Image from 'next/image';
+import { ToastContainer } from 'react-toastify';
+import { useSelector } from 'react-redux';
 
+import { AiOutlineShoppingCart } from "react-icons/ai";
+
+import ListItem from '../ListItem'
 import BrandLogo from '../../assets/React.png'
 
-function Header() {
+import { selectCategoryList } from '@/store/categories';
+import { selectCartItems } from '@/store/cart';
+
+const Header = () => {
   const [open, setOpen] = useState(false);
 
+  const categories = useSelector(selectCategoryList)
+  const cartItems = useSelector(selectCartItems)
+
   return (
+    <>
     <header className='w-full overflow-hidden'>
       <div className="2xl:container md:container container">
           <div className="relative flex items-center justify-between -mx-4 px-4 sm:px-0">
@@ -33,58 +44,56 @@ function Header() {
                   } `}
                 >
                   <ul className="block sm:flex">
-                    <ListItem
-                      navItemStyles="text-dark hover:text-primary"
-                      NavLink="/#"
-                    >
-                      About us
-                    </ListItem>
-                    <ListItem
-                      navItemStyles="text-dark hover:text-primary"
-                      NavLink="/#"
-                    >
-                      What We do
-                    </ListItem>
-                    <ListItem
-                      navItemStyles="text-dark hover:text-primary"
-                      NavLink="/#"
-                    >
-                      Our work
-                    </ListItem>
-                    <ListItem
-                      navItemStyles="text-dark hover:text-primary"
-                      NavLink="/#"
-                    >
-                      Blog
-                    </ListItem>
-                    <ListItem
-                      navItemStyles="text-dark hover:text-primary"
-                      NavLink="/#"
-                    >
-                      Say hi
-                    </ListItem>
+                    {
+                      categories && !!categories.length && categories?.map((category, idx)=> (
+                        <ListItem
+                          key={idx}
+                          navItemStyles="text-dark hover:text-primary"
+                          NavLink={`/products?cat=${category}`}>
+                          {category}
+                      </ListItem>
+                      ))
+                    }
                   </ul>
                 </nav>
               </div>
             </div>
 
             {/* Navbar Toggler */}
-            <div className='py-5'>
+            <div className='flex items-center justify-center gap-4 py-5'>
               <button
                       onClick={() => setOpen(!open)}
                       id="navbarToggler"
                       className={` ${
                         open && "navbarTogglerActive"
-                      } rounded-lg p-3 ring-primary focus:ring-2 flex flex-col items-center justify-center gap-2 lg:gap-1.5`}
+                      } rounded-lg p-3 ring-primary focus:ring-2 flex flex-col items-center justify-center gap-2 lg:gap-1.5 sm:hidden`}
                     >
                       <span className="h-[2px] w-[30px] bg-blue-violet rounded-full"></span>
                       <span className="h-[2px] w-[30px] bg-blue-violet rounded-full"></span>
                       <span className="h-[2px] w-[30px] bg-blue-violet rounded-full"></span>
               </button>
+
+              <Link href="/cart" className='relative block'>
+                <span className='font-medium absolute -top-4 left-[calc(50%-4px)]'>{cartItems?.length || 0}</span>
+                <AiOutlineShoppingCart size='30px'/>
+              </Link>
             </div>
           </div>
         </div>
     </header>
+
+    <ToastContainer
+      position="top-right"
+      autoClose={5000}
+      hideProgressBar={false}
+      newestOnTop={false}
+      closeOnClick
+      rtl={false}
+      pauseOnFocusLoss
+      draggable
+      pauseOnHover
+        />
+    </>
   )
 }
 

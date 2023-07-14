@@ -1,6 +1,7 @@
-import { GetServerSideProps } from 'next'
+import type { GetServerSideProps } from 'next'
+
+import { getProductList } from "@/services/product"
 import { ProductIProps } from '@/models/Product'
-import { getProductList } from '@/services/product'
 import ProductCard from '@/components/ProductCard'
 
 const HomePage = ({ products }: { products: ProductIProps[]}) => (
