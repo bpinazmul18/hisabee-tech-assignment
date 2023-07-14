@@ -9,6 +9,9 @@ const nextConfig = {
       },
     ],
   },
+  env: {
+    API_URL: 'https://fakestoreapi.com',
+  },
 }
 
 module.exports = nextConfig
