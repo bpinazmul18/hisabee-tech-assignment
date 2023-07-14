@@ -1,7 +1,7 @@
 import http from "./http";
 
 interface Parameters {
-  cat: string;
+  cat: string
 }
 
 export const getProductList = async (

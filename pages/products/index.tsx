@@ -2,12 +2,24 @@ import type { GetServerSideProps } from 'next'
 
 import { getProductList } from "@/services/product"
 import { ProductIProps } from '@/models/Product'
+import ProductCard from '@/components/ProductCard'
 
-const HomePage = (props: ProductIProps[]) => {
-  console.log({ props})
+const HomePage = ({ products }: { products: ProductIProps[]}) => {
   
   return (
-    <h1>HI</h1>
+    <>
+      <section className='py-4'>
+        <div className="container">
+          <div className="-mx-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+              {products.map((product, index) => (
+                <ProductCard key={index} product={product} />
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+    </>
   )
 }
 

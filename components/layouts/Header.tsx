@@ -43,20 +43,15 @@ function Header() {
                 >
                   <ul className="block sm:flex">
                     {
-                      categories?.map((category, idx)=> <ListItem
-                      key={idx}
-                      navItemStyles="text-dark hover:text-primary"
-                      NavLink={`products?cat=${category}`}>
-                      {category}
-                    </ListItem>)
+                      categories?.map((category, idx)=> (
+                        <ListItem
+                          key={idx}
+                          navItemStyles="text-dark hover:text-primary"
+                          NavLink={`products?cat=${category}`}>
+                          {category}
+                      </ListItem>
+                      ))
                     }
-
-                    <ListItem
-                      navItemStyles="text-dark hover:text-primary"
-                      NavLink={`/products`}>
-                      products
-                    </ListItem>
-                   
                   </ul>
                 </nav>
               </div>
