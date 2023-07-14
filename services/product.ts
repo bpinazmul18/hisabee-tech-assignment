@@ -1,9 +1,17 @@
-import { formatUrl } from "@/utils";
 import http from "./http";
 
-export const getProductList = async (parameters = {}, requestOptions = {}) => {
-    const url = formatUrl('/products', parameters)
-
-    const response = await http.get(url, requestOptions)
-    return response?.data
+interface Parameters {
+  cat: string;
 }
+
+export const getProductList = async (
+  parameters: Parameters,
+  requestOptions = {}
+) => {
+    let response
+    
+    if (!parameters.cat) response = await http.get(`/products`, requestOptions);
+    else response = await http.get(`/products/category/${parameters.cat}`, requestOptions);
+
+  return response?.data;
+};
