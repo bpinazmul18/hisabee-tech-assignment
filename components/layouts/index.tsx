@@ -1,6 +1,9 @@
 import { Inter } from 'next/font/google'
 import Header from './Header'
 import Footer from './Footer'
+import { useEffect } from 'react'
+import { useDispatch } from 'react-redux'
+import { setCategoryList } from '@/store/categories'
  
 // If loading a variable font, you don't need to specify the font weight
 const inter = Inter({
@@ -8,11 +11,13 @@ const inter = Inter({
   display: 'swap',
 })
  
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode
-}) {
+const RootLayout = ({ children, categoryList}: { children: React.ReactNode, categoryList: string[] })=> {
+  const dispatch = useDispatch()
+
+  useEffect(() => { 
+    dispatch(setCategoryList(categoryList || [])) 
+  }, [categoryList])
+
   return (
     <div className={`flex min-h-screen flex-col items-center justify-between ${inter.className}`}>
         <Header/>
@@ -23,3 +28,5 @@ export default function RootLayout({
     </div>
   )
 }
+
+export default RootLayout

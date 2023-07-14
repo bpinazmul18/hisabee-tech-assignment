@@ -7,9 +7,14 @@ import { AiOutlineShoppingCart } from "react-icons/ai";
 
 import BrandLogo from '../../assets/React.png'
 import { ToastContainer } from 'react-toastify';
+import { useSelector } from 'react-redux';
+import { selectCategoryList } from '@/store/categories';
 
 function Header() {
   const [open, setOpen] = useState(false);
+
+  const categories = useSelector(selectCategoryList)
+
 
   return (
     <>
@@ -37,17 +42,19 @@ function Header() {
                   } `}
                 >
                   <ul className="block sm:flex">
+                    {
+                      categories?.map((category, idx)=> <ListItem
+                      key={idx}
+                      navItemStyles="text-dark hover:text-primary"
+                      NavLink={`products?cat=${category}`}>
+                      {category}
+                    </ListItem>)
+                    }
+
                     <ListItem
                       navItemStyles="text-dark hover:text-primary"
-                      NavLink="/"
-                    >
-                      Products
-                    </ListItem>
-                    <ListItem
-                      navItemStyles="text-dark hover:text-primary"
-                      NavLink="/cart"
-                    >
-                      Cart
+                      NavLink={`/products`}>
+                      products
                     </ListItem>
                    
                   </ul>
