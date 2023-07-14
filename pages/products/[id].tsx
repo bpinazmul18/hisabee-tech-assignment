@@ -1,17 +1,19 @@
 import React from 'react';
 import { GetServerSideProps } from 'next';
 import { NextPage } from 'next';
+import Image from 'next/image';
+import { FaMinus, FaPlus } from 'react-icons/fa';
 
 import { ProductIProps } from '@/models/Product';
 import { getProduct } from '@/services/product';
-import Image from 'next/image';
+import useCart from '@/hooks/useCart';
 
 interface ProductPageProps {
   product: ProductIProps;
 }
 
 const ProductPage: NextPage<ProductPageProps> = ({ product }) => {
-  console.log({ product });
+  const { isItemInCart, addToCart, updateQuantity, getQuantity} = useCart()
 
   return (
     <div className="container mx-auto px-4 py-8">
@@ -22,7 +24,7 @@ const ProductPage: NextPage<ProductPageProps> = ({ product }) => {
                 <Image
                     src={product.image}
                     alt={product.title}
-                    className="w-full h-full object-cover rounded-t"
+                    className="w-full h-full object-contain rounded-t"
                     fill
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                     placeholder='empty'
@@ -37,9 +39,22 @@ const ProductPage: NextPage<ProductPageProps> = ({ product }) => {
             <p className="text-xl font-bold mb-4">${product.price}</p>
             
             <div>
-              <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+            {
+              !isItemInCart(product) ? 
+                <button onClick={()=> addToCart(product)} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                 Add to Cart
-              </button>
+              </button> : 
+              <div className="flex items-center">
+                <button className="text-gray-500 mr-2" onClick={() => updateQuantity(product, getQuantity(product) - 1)} >
+                    <FaMinus />
+                </button>
+                <input type="number" className="w-12 text-center border border-gray-300 rounded" value={getQuantity(product)}
+                    onChange={() => {}} />
+                <button className="text-gray-500 ml-2" onClick={() => updateQuantity(product, getQuantity(product) + 1)} >
+                    <FaPlus />
+                </button>
+              </div> 
+            }
             </div>
           </div>
         </div>
