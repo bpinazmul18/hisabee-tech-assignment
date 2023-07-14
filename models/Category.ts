@@ -1,3 +1,3 @@
-export interface CategoryIProps {
-    name: string;
-  }
+export interface CategoriesState {
+  list: string[];
+}
