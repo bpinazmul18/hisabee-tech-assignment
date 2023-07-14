@@ -10,4 +10,4 @@ export interface ProductIProps {
         count: number
     },
     quantity?: number,
-  }
+}

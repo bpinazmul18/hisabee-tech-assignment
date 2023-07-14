@@ -4,24 +4,19 @@ import { getProductList } from "@/services/product"
 import { ProductIProps } from '@/models/Product'
 import ProductCard from '@/components/ProductCard'
 
-const HomePage = ({ products }: { products: ProductIProps[]}) => {
-  
-  return (
-    <>
-      <section className='py-4'>
-        <div className="container">
-          <div className="-mx-4">
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-              {products.map((product, index) => (
-                <ProductCard key={index} product={product} />
-              ))}
-            </div>
-          </div>
+const HomePage = ({ products }: { products: ProductIProps[]}) => (
+  <section className='py-4'>
+    <div className="container">
+      <div className="-mx-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+          {products.map((product, index) => (
+            <ProductCard key={index} product={product} />
+          ))}
         </div>
-      </section>
-    </>
-  )
-}
+      </div>
+    </div>
+  </section>
+)
 
 export default HomePage
 

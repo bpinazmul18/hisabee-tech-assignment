@@ -1,11 +1,11 @@
 import { Inter } from 'next/font/google'
-import Header from './Header'
-import Footer from './Footer'
 import { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
+
+import Header from './Header'
+import Footer from './Footer'
 import { setCategoryList } from '@/store/categories'
  
-// If loading a variable font, you don't need to specify the font weight
 const inter = Inter({
   subsets: ['latin'],
   display: 'swap',

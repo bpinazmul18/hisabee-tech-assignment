@@ -1,5 +1,5 @@
-import { CategoriesState } from "@/models/Category";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { CategoriesState } from "@/models/Category";
 import { RootState } from "./reducer";
 
 const initialState: CategoriesState = {

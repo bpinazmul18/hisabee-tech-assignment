@@ -10,7 +10,7 @@ const nextConfig = {
     ],
   },
   env: {
-    API_URL: 'https://fakestoreapi.com',
+    API_URL: process.env.REACT_APP_API_URL,
   },
 }
 

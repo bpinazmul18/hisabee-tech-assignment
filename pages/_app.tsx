@@ -1,14 +1,16 @@
+import App from 'next/app'
+import type { AppContext, AppProps } from 'next/app'
+import { Provider } from 'react-redux';
+import { PersistGate } from 'redux-persist/integration/react'
+import axios from 'axios'
+
 import RootLayout from '@/components/layouts'
 import { getCategoryList } from '@/services/category'
-import '@/styles/globals.css'
-import type { AppContext, AppProps } from 'next/app'
-import App from 'next/app'
-import { Provider } from 'react-redux';
 
-import { PersistGate } from 'redux-persist/integration/react'
 import { store, persistedStore } from '@/store/configureStore';
 import { setCategoryList } from '@/store/categories'
-import axios from 'axios'
+
+import '@/styles/globals.css'
 
 const NextApp = ({ Component, pageProps, ...otherProps }: AppProps) => {
   return (
