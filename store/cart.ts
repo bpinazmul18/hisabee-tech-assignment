@@ -1,4 +1,6 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createSlice, current, PayloadAction } from "@reduxjs/toolkit";
+import { RootState } from "./reducer";
+import { ProductIProps } from "@/models/Product";
 
 interface CartState {
   items: Array<any>;
@@ -17,49 +19,20 @@ const cartSlice = createSlice({
   name: "cart",
   initialState,
   reducers: {
-    addItemToCart: (state, action: PayloadAction<any>) => {
-      const itemInCart = state.items.find((i: any) =>
-        i._id === action.payload._id &&
-        i.selectedVariation?._id === action.payload.selectedVariation._id
-      );
+    addItemToCart: (state, action: PayloadAction<ProductIProps>) => {
+      const itemInCart = state.items.find((i: ProductIProps) => i.id === action.payload.id );
 
-      if (!itemInCart) state.items.push(action.payload);
+      const newItem = {...action.payload, quantity: 1}
+
+      if (!itemInCart) state.items.push(newItem);
       else itemInCart.quantity = +itemInCart.quantity + 1;
 
       localStorage.setItem("cart", JSON.stringify(state.items));
     },
-    removeItemFromCart: (state, action: PayloadAction<any>) => {
-      if (action.payload && action.payload.variation) {
-        const indexToRemove = state.items.findIndex((i: any) =>
-          i._id === action.payload._id &&
-          i.selectedVariation?._id === action.payload.selectedVariation._id
-        );
-        if (indexToRemove > -1) state.items.splice(indexToRemove, 1);
-      } else {
-        const indexToRemove = state.items.findIndex((i: any) =>
-          i._id === action.payload._id
-        );
-        if (indexToRemove > -1) state.items.splice(indexToRemove, 1);
-      }
+    removeItemFromCart: (state, action: PayloadAction<number>) => {
+      const indexToRemove = state.items.findIndex((i: ProductIProps) => i.id === action.payload );
 
-      localStorage.setItem("cart", JSON.stringify(state.items));
-    },
-    setItemQuantity(state, action: PayloadAction<any>) {
-      let itemInCart;
-
-      if (action.payload.variation) {
-        itemInCart = state.items.find((i: any) =>
-          i._id === action.payload._id &&
-          i.selectedVariation?._id === action.payload.selectedVariation._id
-        );
-      } else {
-        itemInCart = state.items.find((i: any) =>
-          i._id === action.payload._id
-        );
-      }
-
-      if (!itemInCart) return;
-      itemInCart.quantity = +action.payload.quantity;
+      if (indexToRemove > -1) state.items.splice(indexToRemove, 1);
 
       localStorage.setItem("cart", JSON.stringify(state.items));
     },
@@ -67,9 +40,18 @@ const cartSlice = createSlice({
       state.items = [];
       localStorage.removeItem("cart");
     },
+    setItemQuantity(state, action: PayloadAction<ProductIProps>) {
+      const itemInCart = state.items.find(i => i.id === action.payload.id);
+      if (!itemInCart || action.payload.quantity === undefined) return;
+
+      itemInCart.quantity = +action.payload.quantity;
+      localStorage.setItem("cart", JSON.stringify(state.items));
+    },
   },
 });
 
-// Rest of the code...
+export const { addItemToCart, removeItemFromCart, setItemQuantity, resetCart } = cartSlice.actions
+
+export const selectCartItems = (state: RootState) => state.entities.cart.items;
 
 export default cartSlice.reducer;
