@@ -47,7 +47,7 @@ function Header() {
                         <ListItem
                           key={idx}
                           navItemStyles="text-dark hover:text-primary"
-                          NavLink={`products?cat=${category}`}>
+                          NavLink={`/products?cat=${category}`}>
                           {category}
                       </ListItem>
                       ))
