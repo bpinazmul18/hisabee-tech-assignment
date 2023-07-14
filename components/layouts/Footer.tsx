@@ -28,7 +28,8 @@ function Footer() {
                 <Image
                   src={BrandLogo}
                   alt="Brand Logo"
-                  className="h-[32px] w-32 dark:brightness-200 dark:grayscale"
+                  loading='lazy'
+                  className="dark:brightness-200 dark:grayscale"
                   width={116}
                   height={32}
                 />
