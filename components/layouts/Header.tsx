@@ -1,20 +1,22 @@
 import React, { useState } from 'react'
-import ListItem from '../ListItem'
 import Link from 'next/link';
 import Image from 'next/image';
+import { ToastContainer } from 'react-toastify';
+import { useSelector } from 'react-redux';
 
 import { AiOutlineShoppingCart } from "react-icons/ai";
 
+import ListItem from '../ListItem'
 import BrandLogo from '../../assets/React.png'
-import { ToastContainer } from 'react-toastify';
-import { useSelector } from 'react-redux';
-import { selectCategoryList } from '@/store/categories';
 
-function Header() {
+import { selectCategoryList } from '@/store/categories';
+import { selectCartItems } from '@/store/cart';
+
+const Header = () => {
   const [open, setOpen] = useState(false);
 
   const categories = useSelector(selectCategoryList)
-
+  const cartItems = useSelector(selectCartItems)
 
   return (
     <>
@@ -43,7 +45,7 @@ function Header() {
                 >
                   <ul className="block sm:flex">
                     {
-                      categories?.map((category, idx)=> (
+                      categories && !!categories.length && categories?.map((category, idx)=> (
                         <ListItem
                           key={idx}
                           navItemStyles="text-dark hover:text-primary"
@@ -71,10 +73,10 @@ function Header() {
                       <span className="h-[2px] w-[30px] bg-blue-violet rounded-full"></span>
               </button>
 
-              <button className='relative'>
-                <span className='absolute -top-4 left-[calc(50%-4px)]'>{0}</span>
-                <AiOutlineShoppingCart className='text-[30px]'/>
-              </button>
+              <Link href="/cart" className='relative block'>
+                <span className='font-medium absolute -top-4 left-[calc(50%-4px)]'>{cartItems?.length || 0}</span>
+                <AiOutlineShoppingCart size='30px'/>
+              </Link>
             </div>
           </div>
         </div>
@@ -92,7 +94,6 @@ function Header() {
       pauseOnHover
         />
     </>
-    
   )
 }
 
